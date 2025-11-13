@@ -7,7 +7,17 @@ import DashboardPage from './pages/DashboardPage';
 import AdminSubjectsPage from './pages/AdminSubjectsPage';
 import ClassesPage from './pages/ClassesPage';
 import EnrollmentsPage from './pages/EnrollmentsPage';
-import { FiHome, FiBookOpen, FiCalendar, FiUserCheck, FiLogOut, FiLogIn, FiUserPlus } from 'react-icons/fi';
+import SchedulePage from './pages/SchedulePage';
+import {
+  FiHome,
+  FiBookOpen,
+  FiCalendar,
+  FiUserCheck,
+  FiLogOut,
+  FiLogIn,
+  FiUserPlus,
+  FiClock
+} from 'react-icons/fi';
 
 function Layout({ children }) {
   const { user, logout } = useAuth();
@@ -31,6 +41,11 @@ function Layout({ children }) {
               <NavLink to="/enrollments" className={linkClass}>
                 <FiUserCheck /> Inscripciones
               </NavLink>
+              {user.rol === 'estudiante' && (
+                <NavLink to="/schedule" className={linkClass}>
+                  <FiClock /> Mi horario
+                </NavLink>
+              )}
               {user.rol === 'admin' && (
                 <NavLink to="/admin/subjects" className={linkClass}>
                   <FiBookOpen /> Asignaturas
@@ -115,6 +130,15 @@ export default function App() {
           element={
             <ProtectedRoute>
               <EnrollmentsPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/schedule"
+          element={
+            <ProtectedRoute>
+              <SchedulePage />
             </ProtectedRoute>
           }
         />
