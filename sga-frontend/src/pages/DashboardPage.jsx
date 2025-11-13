@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import { FiBookOpen, FiCalendar, FiUserCheck } from 'react-icons/fi';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -46,41 +47,61 @@ export default function DashboardPage() {
     <div className="grid grid-2">
       <div className="card">
         <h2>Bienvenido, {user?.nombre}</h2>
-        <p style={{ color: '#6b7280', fontSize: '0.9rem' }}>
+        <p style={{ color: '#6b7280', fontSize: '0.9rem', marginTop: '0.2rem' }}>
           Rol: <strong>{user?.rol}</strong>
         </p>
 
-        {isAdmin && (
-          <>
-            <h3>Panel de administrador</h3>
-            <p>Elegí una opción de gestión:</p>
-            <div className="grid" style={{ marginTop: '0.75rem' }}>
-              <Link to="/admin/subjects" className="btn">
-                Gestionar asignaturas
+        <div
+          style={{
+            marginTop: '1rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+            gap: '0.8rem'
+          }}
+        >
+          {isAdmin && (
+            <div className="mini-card">
+              <FiBookOpen />
+              <h3>Administración</h3>
+              <p>Gestioná asignaturas y clases del sistema.</p>
+              <Link to="/admin/subjects" className="mini-card-link">
+                Ir a asignaturas
               </Link>
             </div>
-          </>
-        )}
+          )}
 
-        {isProfesor && (
-          <>
-            <h3>Panel de profesor</h3>
-            <ul>
-              <li>Ver mis clases (sección Clases)</li>
-              <li>Ver inscripciones a mis clases (sección Inscripciones)</li>
-            </ul>
-          </>
-        )}
+          {isProfesor && (
+            <div className="mini-card">
+              <FiCalendar />
+              <h3>Clases a cargo</h3>
+              <p>Consultá tus clases y estudiantes inscriptos.</p>
+              <Link to="/classes" className="mini-card-link">
+                Ver mis clases
+              </Link>
+            </div>
+          )}
 
-        {isEstudiante && (
-          <>
-            <h3>Panel de estudiante</h3>
-            <ul>
-              <li>Ver oferta de clases e inscribirme (sección Clases)</li>
-              <li>Ver mis inscripciones y descargar PDF (sección Inscripciones)</li>
-            </ul>
-          </>
-        )}
+          {isEstudiante && (
+            <>
+              <div className="mini-card">
+                <FiCalendar />
+                <h3>Oferta de clases</h3>
+                <p>Inscribite a las materias disponibles.</p>
+                <Link to="/classes" className="mini-card-link">
+                  Ver clases
+                </Link>
+              </div>
+              <div className="mini-card">
+                <FiUserCheck />
+                <h3>Mi horario</h3>
+                <p>Revisá tus inscripciones y horario semanal.</p>
+                <Link to="/schedule" className="mini-card-link">
+                  Ver horario
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="card">

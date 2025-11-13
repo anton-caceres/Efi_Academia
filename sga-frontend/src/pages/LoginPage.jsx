@@ -1,6 +1,10 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
+import { Link, useNavigate } from 'react-router-dom';
+import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -8,8 +12,8 @@ export default function LoginPage() {
 
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -17,55 +21,75 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await login(correo, contraseña);
+      const { data } = await axios.post(`${API_URL}/auth/login`, {
+        correo,
+        contraseña
+      });
+
+      login(data.user, data.token);
       navigate('/dashboard');
     } catch (err) {
       console.error(err);
-      setError(err?.response?.data?.message || 'Error al iniciar sesión');
+      setError(
+        err?.response?.data?.message ||
+          'Error al iniciar sesión. Verificá tus datos.'
+      );
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="card" style={{ maxWidth: 420, margin: '0 auto' }}>
-      <h2>Iniciar sesión</h2>
-      <p style={{ fontSize: '0.9rem', color: '#6b7280' }}>
-        Accedé al sistema con tu cuenta.
-      </p>
-      <form className="form-grid" onSubmit={handleSubmit}>
-        <div>
-          <label>Correo electrónico</label>
-          <input
-            type="email"
-            value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Contraseña</label>
-          <input
-            type="password"
-            value={contraseña}
-            onChange={(e) => setContraseña(e.target.value)}
-            required
-          />
-        </div>
+    <div className="auth-wrapper">
+      <div className="auth-card">
+        <h2>
+          <FiLogIn /> Iniciar sesión
+        </h2>
+        <p className="auth-subtitle">
+          Accedé al Sistema de Gestión Académica con tu correo institucional.
+        </p>
 
-        {error && <p className="error-text">{error}</p>}
+        <form className="form-grid" onSubmit={handleSubmit}>
+          <div>
+            <label>
+              <FiMail /> Correo electrónico
+            </label>
+            <input
+              type="email"
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
+              placeholder="tu@correo.com"
+              required
+            />
+          </div>
 
-        <button type="submit" className="btn btn-full" disabled={loading}>
-          {loading ? 'Ingresando...' : 'Ingresar'}
-        </button>
+          <div>
+            <label>
+              <FiLock /> Contraseña
+            </label>
+            <input
+              type="password"
+              value={contraseña}
+              onChange={(e) => setContraseña(e.target.value)}
+              placeholder="Tu contraseña"
+              required
+            />
+          </div>
 
-        <p style={{ fontSize: '0.85rem', marginTop: '0.5rem' }}>
-          ¿No tenés cuenta?{' '}
-          <Link to="/register" style={{ textDecoration: 'underline' }}>
-            Registrate
+          {error && <p className="error-text">{error}</p>}
+
+          <button className="btn btn-full" type="submit" disabled={loading}>
+            {loading ? 'Ingresando...' : 'Ingresar'}
+          </button>
+        </form>
+
+        <p className="auth-footer-text">
+          ¿Todavía no tenés cuenta?{' '}
+          <Link to="/register" className="auth-link">
+            Registrate acá
           </Link>
         </p>
-      </form>
+      </div>
     </div>
   );
 }
