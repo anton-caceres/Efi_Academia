@@ -6,30 +6,41 @@ import { Link } from 'react-router-dom';
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function DashboardPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [subjects, setSubjects] = useState([]);
   const [loadingSubjects, setLoadingSubjects] = useState(true);
   const [errorSubjects, setErrorSubjects] = useState(null);
 
   useEffect(() => {
+    if (authLoading || !user) return;
+
     async function fetchSubjects() {
       try {
+        setLoadingSubjects(true);
         const { data } = await axios.get(`${API_URL}/subjects`);
         setSubjects(data);
       } catch (err) {
         console.error(err);
-        setErrorSubjects('Error al cargar asignaturas');
+        if (err?.response?.status === 401) {
+          setErrorSubjects('No autorizado para ver asignaturas');
+        } else {
+          setErrorSubjects('Error al cargar asignaturas');
+        }
       } finally {
         setLoadingSubjects(false);
       }
     }
 
     fetchSubjects();
-  }, []);
+  }, [authLoading, user]);
 
   const isAdmin = user?.rol === 'admin';
   const isProfesor = user?.rol === 'profesor';
   const isEstudiante = user?.rol === 'estudiante';
+
+  if (authLoading) {
+    return <p>Cargando sesión...</p>;
+  }
 
   return (
     <div className="grid grid-2">
@@ -47,14 +58,6 @@ export default function DashboardPage() {
               <Link to="/admin/subjects" className="btn">
                 Gestionar asignaturas
               </Link>
-              {/* Más adelante podemos agregar:
-              <Link to="/admin/classes" className="btn btn-outline">
-                Gestionar clases
-              </Link>
-              <Link to="/admin/enrollments" className="btn btn-outline">
-                Ver inscripciones
-              </Link>
-              */}
             </div>
           </>
         )}
@@ -63,8 +66,8 @@ export default function DashboardPage() {
           <>
             <h3>Panel de profesor</h3>
             <ul>
-              <li>En el futuro: ver mis clases</li>
-              <li>En el futuro: ver estudiantes inscriptos</li>
+              <li>Ver mis clases (sección Clases)</li>
+              <li>Ver inscripciones a mis clases (sección Inscripciones)</li>
             </ul>
           </>
         )}
@@ -73,8 +76,8 @@ export default function DashboardPage() {
           <>
             <h3>Panel de estudiante</h3>
             <ul>
-              <li>En el futuro: ver oferta de clases</li>
-              <li>En el futuro: inscribirme a clases</li>
+              <li>Ver oferta de clases e inscribirme (sección Clases)</li>
+              <li>Ver mis inscripciones y descargar PDF (sección Inscripciones)</li>
             </ul>
           </>
         )}

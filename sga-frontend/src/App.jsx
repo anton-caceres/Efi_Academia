@@ -1,13 +1,19 @@
-import { Routes, Route, Navigate, Link } from 'react-router-dom';
+import { Routes, Route, Navigate, NavLink } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import AdminSubjectsPage from './pages/AdminSubjectsPage';
+import ClassesPage from './pages/ClassesPage';
+import EnrollmentsPage from './pages/EnrollmentsPage';
+import { FiHome, FiBookOpen, FiCalendar, FiUserCheck, FiLogOut, FiLogIn, FiUserPlus } from 'react-icons/fi';
 
 function Layout({ children }) {
   const { user, logout } = useAuth();
+
+  const linkClass = ({ isActive }) =>
+    `nav-link ${isActive ? 'nav-link-active' : ''}`;
 
   return (
     <div className="app">
@@ -16,16 +22,35 @@ function Layout({ children }) {
         <nav>
           {user ? (
             <>
-              <Link to="/dashboard" className="btn-outline btn">Dashboard</Link>
-              <span className="user-pill">{user.nombre} ({user.rol})</span>
+              <NavLink to="/dashboard" className={linkClass}>
+                <FiHome /> Inicio
+              </NavLink>
+              <NavLink to="/classes" className={linkClass}>
+                <FiCalendar /> Clases
+              </NavLink>
+              <NavLink to="/enrollments" className={linkClass}>
+                <FiUserCheck /> Inscripciones
+              </NavLink>
+              {user.rol === 'admin' && (
+                <NavLink to="/admin/subjects" className={linkClass}>
+                  <FiBookOpen /> Asignaturas
+                </NavLink>
+              )}
+              <span className="user-pill">
+                {user.nombre} ({user.rol})
+              </span>
               <button onClick={logout} className="btn btn-outline">
-                Cerrar sesión
+                <FiLogOut /> Cerrar sesión
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="btn btn-outline">Login</Link>
-              <Link to="/register" className="btn">Registro</Link>
+              <NavLink to="/login" className={linkClass}>
+                <FiLogIn /> Login
+              </NavLink>
+              <NavLink to="/register" className={linkClass}>
+                <FiUserPlus /> Registro
+              </NavLink>
             </>
           )}
         </nav>
@@ -72,6 +97,24 @@ export default function App() {
           element={
             <ProtectedRoute>
               <AdminSubjectsPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/classes"
+          element={
+            <ProtectedRoute>
+              <ClassesPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/enrollments"
+          element={
+            <ProtectedRoute>
+              <EnrollmentsPage />
             </ProtectedRoute>
           }
         />
