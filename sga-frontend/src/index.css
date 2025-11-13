@@ -315,3 +315,149 @@ select:focus {
     padding: 1.25rem 1rem 2rem;
   }
 }
+
+/* LANDING PAGE */
+
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.landing-hero {
+  position: relative;
+  height: 55vh;
+  min-height: 360px;
+  background-image: url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1650&q=80");
+  background-size: cover;
+  background-position: center;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.3);
+}
+
+.landing-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, rgba(17, 24, 39, 0.6), rgba(30, 41, 59, 0.4));
+}
+
+.landing-content {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  color: white;
+  max-width: 520px;
+}
+
+.landing-title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.landing-subtitle {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  opacity: 0.9;
+}
+
+.landing-buttons {
+  margin-top: 1.3rem;
+  display: flex;
+  gap: 0.9rem;
+}
+
+.landing-btn {
+  font-size: 1rem;
+}
+
+/* FEATURES SECTION */
+
+.landing-features-section {
+  text-align: center;
+}
+
+.landing-features-title {
+  font-size: 1.9rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.landing-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.4rem;
+}
+
+.landing-feature-card {
+  background: white;
+  padding: 1.4rem;
+  border-radius: 0.9rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 16px 28px rgba(15, 23, 42, 0.08);
+}
+
+.landing-feature-icon {
+  font-size: 2rem;
+  color: #2563eb;
+  margin-bottom: 0.8rem;
+}
+
+/* ABOUT PAGE */
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.about-header p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  max-width: 640px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.2rem;
+}
+
+.about-card {
+  background: #f9fafb;
+  border-radius: 0.9rem;
+  padding: 1.2rem;
+  border: 1px solid #e5e7eb;
+}
+
+.about-card h3 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-card p,
+.about-card ul {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.about-card ul {
+  padding-left: 1.1rem;
+}
+
+.about-card li + li {
+  margin-top: 0.2rem;
+}
+
+.about-icon {
+  font-size: 1.7rem;
+  color: #2563eb;
+}
+
+.about-footer p {
+  font-size: 0.9rem;
+  color: #6b7280;
+  max-width: 700px;
+}
