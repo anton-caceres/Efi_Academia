@@ -10,6 +10,7 @@ import EnrollmentsPage from './pages/EnrollmentsPage';
 import SchedulePage from './pages/SchedulePage';
 import LandingPage from './pages/LandingPage';
 import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 
 import {
   FiHome,
@@ -90,6 +91,9 @@ function Layout({ children }) {
 
       <footer className="app-footer">
         <span>Sistema de Gestión Académica - Demo</span>
+        <NavLink to="/contact" className="nav-link" style={{ fontSize: '0.8rem' }}>
+          Soporte
+        </NavLink>
       </footer>
     </div>
   );
@@ -107,6 +111,7 @@ export default function App() {
         />
 
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

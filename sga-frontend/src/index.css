@@ -461,3 +461,58 @@ select:focus {
   color: #6b7280;
   max-width: 700px;
 }
+
+/* CONTACT PAGE */
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.contact-header p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  max-width: 640px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.contact-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.8rem;
+}
+
+.contact-field label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.2rem;
+}
+
+.contact-field textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.65rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.contact-field textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.35);
+}
+
+.contact-note {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
