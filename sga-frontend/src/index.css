@@ -1,0 +1,161 @@
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #111827;
+  background-color: #f3f4f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  background: #111827;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-header h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.app-main {
+  flex: 1;
+  padding: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-footer {
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6b7280;
+  border-top: 1px solid #e5e7eb;
+}
+
+.card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+label {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.35);
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.2rem;
+  background: #2563eb;
+  color: white;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.15s ease;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+  box-shadow: 0 12px 25px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn-outline {
+  border: 1px solid #e5e7eb;
+  background: white;
+  color: #111827;
+}
+
+.btn-outline:hover {
+  background: #f3f4f6;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.error-text {
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+
+.success-text {
+  color: #15803d;
+  font-size: 0.85rem;
+}
+
+.user-pill {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.85rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
